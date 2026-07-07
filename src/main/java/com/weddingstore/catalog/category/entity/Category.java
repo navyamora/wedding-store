@@ -21,10 +21,15 @@ public class Category {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
+    @Column(nullable = false, unique = true, length = 150)
+    private String slug;
+
     @Column(length = 500)
     private String description;
 
     private String imageUrl;
+
+    private Integer displayOrder;
 
     @Builder.Default
     private Boolean active = true;
