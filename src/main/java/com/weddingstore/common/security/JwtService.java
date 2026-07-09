@@ -1,5 +1,6 @@
 package com.weddingstore.common.security;
 
+import com.weddingstore.common.config.properties.JwtProperties;
 import com.weddingstore.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,15 +15,19 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    @Value("${app.jwt.secret}")
-    private String jwtSecret;
+    
+    
+    private final JwtProperties jwtProperties;
 
-    @Value("${app.jwt.expiration-ms}")
-    private long jwtExpirationMs;
+    public JwtService(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
+    
+    
 
     public String generateToken(User user) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
+        Date expiryDate = new Date(now.getTime() + jwtProperties.getExpirationMs());
 
         return Jwts.builder()
                 .subject(user.getEmail())
@@ -56,6 +61,6 @@ public class JwtService {
     }
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
     }
 }

@@ -1,9 +1,9 @@
 package com.weddingstore.catalog.category.entity;
 
+import com.weddingstore.common.entity.BaseEntity;
+
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +34,4 @@ public class Category {
     @Builder.Default
     private Boolean active = true;
 
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Builder.Default
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 }

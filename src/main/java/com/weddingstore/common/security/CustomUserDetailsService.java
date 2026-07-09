@@ -2,6 +2,11 @@ package com.weddingstore.common.security;
 
 import com.weddingstore.user.entity.User;
 import com.weddingstore.user.repository.UserRepository;
+import com.weddingstore.user.security.UserPrincipal;
+
+import java.util.List;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,11 +26,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return org.springframework.security.core.userdetails.User
+        /*return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
                 .authorities("ROLE_" + user.getRole().name())
                 .disabled(!user.getEnabled())
-                .build();
+                .build();*/
+        
+        return new UserPrincipal(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getEnabled(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 }
