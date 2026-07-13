@@ -30,5 +30,7 @@ aws:
    s3:
      bucket: wedding-store-dev
      region: us-east-2
+openai:
+  model: gpt-5
 
   
