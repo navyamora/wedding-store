@@ -98,4 +98,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .trim()
                 .replaceAll("[^a-z0-9\\s-]", "")
                 .replaceAll("\\s+", "-")
-                .replaceAll
+                .replaceAll("-+", "-");
+    }
+}
