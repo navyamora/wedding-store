@@ -129,5 +129,12 @@ User
  ├── Notifications
  └── Reviews
                              
+  
+  
+  GET /api/services
+  GET /api/services?city=Hyderabad
+  GET /api/services?serviceType=BRIDAL_MAKEUP
+  GET /api/services?maxPrice=30000
+  GET /api/services?featured=true
                              
                              
