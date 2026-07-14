@@ -52,4 +52,17 @@ public interface ServiceOfferingRepository
 
     List<ServiceOffering>
     findByFeaturedTrueAndActiveTrueOrderByRatingDesc();
+    
+    List<ServiceOffering>
+    findTop10ByActiveTrueOrderByFeaturedDescRatingDesc();
+
+    List<ServiceOffering>
+    findTop10ByCategoryIdAndActiveTrueOrderByFeaturedDescRatingDesc(
+            Long categoryId
+    );
+
+    List<ServiceOffering>
+    findTop10ByCityIgnoreCaseAndActiveTrueOrderByFeaturedDescRatingDesc(
+            String city
+    );
 }

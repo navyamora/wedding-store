@@ -16,4 +16,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByCategoryIdAndActiveTrueOrderByIdDesc(Long categoryId);
 
     List<Product> findByFeaturedTrueAndActiveTrueOrderByIdDesc();
+
+    List<Product> findTop10ByActiveTrueOrderByFeaturedDescIdDesc();
+    
+    List<Product>
+    findTop10ByCategoryIdAndActiveTrueOrderByFeaturedDescIdDesc(
+            Long categoryId
+    );
 }

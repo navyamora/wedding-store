@@ -35,8 +35,12 @@ public class SecurityConfig {
 	                        .requestMatchers("/api/categories/**").permitAll()
 	                        .requestMatchers("/api/products/**").permitAll()
 	                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-	                        .requestMatchers("/api/ai/**").permitAll()
 	                        .requestMatchers("/api/services/**").permitAll()
+	                        .requestMatchers(
+	                                "/api/ai/chat",
+	                                "/api/ai/budget-planner",
+	                                "/api/ai/checklist"
+	                        ).permitAll()
 	                        .requestMatchers(
 	                                org.springframework.http.HttpMethod.GET,
 	                                "/api/vendors"

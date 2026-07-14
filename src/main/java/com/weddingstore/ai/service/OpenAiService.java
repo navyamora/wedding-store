@@ -41,6 +41,11 @@ public class OpenAiService implements AiService {
     public String createWeddingChecklist(ChecklistRequest request) {
         return generateResponse(PromptBuilder.weddingChecklist(request));
     }
+    
+    @Override
+    public String generateFromPrompt(String prompt) {
+        return generateResponse(prompt);
+    }
 
     private String generateResponse(String prompt) {
         try {

@@ -10,5 +10,5 @@ public interface AiService {
     String createBudgetPlan(BudgetPlannerRequest request);
     
     String createWeddingChecklist(ChecklistRequest request);
-
+    String generateFromPrompt(String prompt);
 }
