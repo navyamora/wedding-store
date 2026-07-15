@@ -25,4 +25,10 @@ public interface ServiceAvailabilityRepository
             Long serviceId,
             DayOfWeek dayOfWeek
     );
+    
+    List<ServiceAvailability>
+    findByServiceIdAndDayOfWeekAndActiveTrueOrderByStartTimeAsc(
+            Long serviceId,
+            DayOfWeek dayOfWeek
+    );
 }

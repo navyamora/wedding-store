@@ -136,6 +136,105 @@ public final class PromptBuilder {
         );
     }
     
+    public static String eventBudgetPlan(Event event) {
+        return """
+                You are an expert Indian event budget planner.
+
+                Create a practical budget plan for the following saved event.
+
+                Event details:
+                Event ID: %d
+                Event type: %s
+                Title: %s
+                Event date: %s
+                City: %s
+                Venue: %s
+                Total budget: %s
+                Guest count: %s
+                Theme: %s
+                Description: %s
+
+                Requirements:
+                - Use Indian Rupees.
+                - Do not exceed the supplied total budget.
+                - Adjust categories based on the event type.
+                - Do not use wedding-only categories for poojas, birthdays,
+                  housewarmings or corporate events unless relevant.
+                - Show each category's amount and approximate percentage.
+                - Estimate per-guest expenses where appropriate.
+                - Highlight the three largest expenses.
+                - Include at least three cost-saving recommendations.
+                - Include a contingency allocation.
+                - State clearly that all amounts are estimates.
+                - Return a clean, structured response with headings and bullets.
+                """.formatted(
+                event.getId(),
+                event.getEventType(),
+                sanitize(event.getTitle()),
+                event.getEventDate(),
+                sanitize(event.getCity()),
+                valueOrDefault(event.getVenue(), "Not finalized"),
+                event.getBudget() == null
+                        ? "Not specified"
+                        : "₹" + event.getBudget().toPlainString(),
+                event.getGuestCount() == null
+                        ? "Not specified"
+                        : event.getGuestCount(),
+                valueOrDefault(event.getTheme(), "Not specified"),
+                valueOrDefault(event.getDescription(), "Not specified")
+        );
+    }
+
+    public static String eventChecklist(Event event) {
+        return """
+                You are an expert Indian event planning coordinator.
+
+                Create a detailed and practical checklist for the following
+                saved event.
+
+                Event details:
+                Event ID: %d
+                Event type: %s
+                Title: %s
+                Event date: %s
+                City: %s
+                Venue: %s
+                Budget: %s
+                Guest count: %s
+                Theme: %s
+                Current status: %s
+                Description: %s
+
+                Requirements:
+                - Adapt every task to the event type.
+                - Do not assume this is a wedding.
+                - Organize tasks by urgency and time before the event.
+                - Include venue, invitations, guests, food, decoration,
+                  photography, beauty or grooming, transport, vendors,
+                  documentation and emergency preparation only when relevant.
+                - Include tasks for the final week and event day.
+                - Include vendor confirmation and payment reminders.
+                - Avoid recommending tasks that do not apply to this event.
+                - Return markdown checkboxes using "- [ ]".
+                """.formatted(
+                event.getId(),
+                event.getEventType(),
+                sanitize(event.getTitle()),
+                event.getEventDate(),
+                sanitize(event.getCity()),
+                valueOrDefault(event.getVenue(), "Not finalized"),
+                event.getBudget() == null
+                        ? "Not specified"
+                        : "₹" + event.getBudget().toPlainString(),
+                event.getGuestCount() == null
+                        ? "Not specified"
+                        : event.getGuestCount(),
+                valueOrDefault(event.getTheme(), "Not specified"),
+                event.getStatus(),
+                valueOrDefault(event.getDescription(), "Not specified")
+        );
+    }
+    
     private static String buildProductContext(List<Product> products) {
         StringBuilder builder = new StringBuilder();
 

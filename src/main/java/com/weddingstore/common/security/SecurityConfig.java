@@ -36,6 +36,7 @@ public class SecurityConfig {
 	                        .requestMatchers("/api/products/**").permitAll()
 	                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 	                        .requestMatchers("/api/services/**").permitAll()
+	                        .requestMatchers("/api/search/**").permitAll()
 	                        .requestMatchers(
 	                                "/api/ai/chat",
 	                                "/api/ai/budget-planner",
